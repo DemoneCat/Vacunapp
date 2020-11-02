@@ -1,11 +1,8 @@
 <?php
 namespace App\Repo;
 
+
 abstract class BaseRepository{
-    private function __construct(){
-
-    }
-
     //Abstract Operations
     abstract public function getModel();
 

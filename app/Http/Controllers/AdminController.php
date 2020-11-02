@@ -23,19 +23,12 @@ class AdminController extends Controller
         ]));
     }
     public function createVacunas(Request $request){
-        $vacunaInstance = new Vacuna;
-        $data = $request->only($vacunaInstance->getFillable());
-        $vacunaInstance->fill($data);
-        $this->VacunaRepo->create($vacunaInstance);
-
+        $data = $request->except('_token');
+        $this->VacunaRepo->create($data);
         return back();
-        /*
-        $vacunaInstance->nombre = $request->nombre;
-        $vacunaInstance->periodo_aplicacion_meses = $request->periodo_aplicacion_meses;
-        $vacunaInstance->descripcion = $request->descripcion;
-        $vacunaInstance->cura = $request->cura;
-        $vacunaInstance->url_detalles = $request->url_detalles;
-        $vacunaInstance->created_at = Carbon::now();
-        $vacunaInstance->updated_at = Carbon::now();*/
+    }
+    public function searchVacuna(Request $request){
+        $vacuna = $this->VacunaRepo->find($request->id);
+        return response()->json($vacuna);
     }
 }
