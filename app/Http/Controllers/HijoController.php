@@ -38,4 +38,10 @@ class HijoController extends Controller
         $vacunas = $this->hR->getVacunasByHijo($request->id);
         return response()->json($vacunas);
     }
+    public function createHijoVacunas(Request $request){
+        $this->hR->createHijosVacunas($request->vacuna_id, $request->fecha_aplicacion, $request->id_hijos);
+        return back();
+    }
+
+
 }

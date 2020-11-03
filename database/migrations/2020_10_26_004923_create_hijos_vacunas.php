@@ -17,7 +17,7 @@ class CreateHijosVacunas extends Migration
             $table->id();
             $table->unsignedBigInteger('id_hijos');
             $table->unsignedBigInteger('id_vacunas');
-            $table->date('fecha_aplicacion')->nullable();
+            $table->timestamp('fecha_aplicacion')->nullable();
             $table->timestamps();
 
             $table->foreign('id_hijos')->references('id')->on('hijos');

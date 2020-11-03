@@ -31,6 +31,9 @@
                         <a href="#" onclick="detallesHijoVacunas({{$h->id}})" class="btn btn-warning">
                             <i class="fa fa-pencil"></i>
                         </a>
+                        <a class="btn btn-info" href="{{ route('hijos-vacunas.index', ['id_hijo' => $h->id] ) }}">
+                            <i class="fas fa-info-circle"></i>
+                        </a>
                     </td>
                 </tr>
             @endforeach
@@ -113,29 +116,33 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
+        <form action="{{route('hijo.create-vacunas')}}" method="POST">
         <div class="modal-body">
-            <form action="" method="POST">
-                <input type="hidden" name="id_hijos" id="id_hijos">
+            @csrf
+                <input type="hidden" name="id_hijos" id="id_hijos_hidden">
+                <div class="form-row">
                 @foreach ($vacunas as $v)
-                <div class="form-inline">
-                    <div class="form-group ml-2">
-                        <div class="custom-control custom-switch">
-                            <input type="checkbox" class="custom-control-input" id="vacuna_id_"{{$v->id}}>
-                            <label class="custom-control-label" for="vacuna_id_"{{$v->id}}>{{$v->nombre}}</label>
+
+                    <div class="form-inline">
+                        <div class="form-group ml-2">
+                            <div class="custom-control custom-switch">
+                                <input type="checkbox" name="vacuna_id[]" class="custom-control-input" id="vacuna_id_{{$v->id}}" value="{{$v->id}}">
+                                <label class="custom-control-label" for="vacuna_id_{{$v->id}}">{{$v->nombre}}</label>
+                            </div>
+                        </div>
+                        <div class="form-group ml-4">
+                            <label for="fecha_aplicacion_vacuna{{$v->id}}" class="form-label mr-1">Fecha aplicacion vacuna</label>
+                            <input type="date" class="form-control" name="fecha_aplicacion[]" id="fecha_aplicacion_vacuna{{$v->id}}" placeholder="Fecha aplicacion">
                         </div>
                     </div>
-                    <div class="form-group ml-4">
-                        <label for="" class="form-label mr-1">Fecha aplicacion vacuna</label>
-                        <input type="date" class="form-control" name="fecha_aplicacion" placeholder="Fecha aplicacion">
-                    </div>
-                </div>
-
                 @endforeach
-            </form>
+            </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          <button type="submit" class="btn btn-primary">Crear</button>
         </div>
+    </form>
       </div>
     </div>
   </div>
@@ -165,17 +172,12 @@
         $('#detallesHijoModal').modal('show');
     }
     function detallesHijoVacunas(id){
+        $('#id_hijos_hidden').val(id);
         $('#setVacunasHijoModal').modal('show');
-        /*fetch(url_detalles_hijos_vacuna + "?id="+id, {
-            method: 'GET',
-        }).then(res => res.json())
-        .then(
-            response => setDetallesHijosVacuna(response)
-        );*/
     }
 
     function setDetallesHijosVacuna(data){
-        console.log(data);
+
     }
 </script>
 
